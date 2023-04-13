@@ -53,4 +53,7 @@ if [[ $KAFKA_VERSION == "" ]]; then
 fi
 
 ./kafka_2.12-$KAFKA_VERSION/bin/kafka-server-stop.sh
+
+sleep 10
+
 ./kafka_2.12-$KAFKA_VERSION/bin/zookeeper-server-stop.sh
