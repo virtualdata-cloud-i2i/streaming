@@ -14,16 +14,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 set -e
+message_help="""
+Download and install locally Apache Kafka\n\n
+Usage:\n
+    ./install_kafka.sh [--version] [-h] \n\n
 
-KAFKA_VERSION=2.8.1
+Specify the version with --version.\n
+Use -h to display this help.
+"""
 
-wget --no-check-certificate https://www.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.12-${KAFKA_VERSION}.tgz -O kafka.tgz
-mkdir -p kafka
-tar -xzf kafka.tgz -C kafka --strip-components 1
-rm kafka.tgz
+# Show help if no arguments is given
+if [[ $1 == "" ]]; then
+  echo -e $message_help
+  exit 1
+fi
 
-kafka/bin/zookeeper-server-start.sh kafka/config/zookeeper.properties &
+# Grab the command line arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    -h)
+        echo -e $message_help
+        exit
+        ;;
+    --version)
+        if [[ $2 == "" ]]; then
+          echo "$1 requires an argument" >&2
+          exit 1
+        fi
+        KAFKA_VERSION="$2"
+        shift 2
+        ;;
+  esac
+done
 
-sleep 5
+if [[ $KAFKA_VERSION == "" ]]; then
+  echo "You need to specify the Kafka version with the option --version."
+  exit
+fi
 
-kafka/bin/kafka-server-start.sh kafka/config/server.properties &
+wget --quiet --no-check-certificate https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.12-${KAFKA_VERSION}.tgz
+tar -zxvf kafka_2.12-${KAFKA_VERSION}.tgz
+rm kafka_2.12-${KAFKA_VERSION}.tgz
