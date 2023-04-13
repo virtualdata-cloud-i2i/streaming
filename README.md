@@ -1,4 +1,4 @@
-## Example 4: implement a streaming application
+## Building a streaming application
 
 Netflix & co, but also Whatsapp, Telegram, etc. All these are deployed in clouds, and use streaming techniques to move data from one place to another. Here, we will focus on [Apache Kafka](https://kafka.apache.org/), an open-source distributed event streaming platform. In brief, there are two roles: the producer (producing messages), and the consumer (polling messages).
 
