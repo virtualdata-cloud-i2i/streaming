@@ -43,7 +43,7 @@ p = Producer({
 username = os.environ['USERNAME']
 
 for i in range(3):
-    data = f"[{username}]: {i+1}"
+    data = f"[{username}]: This is message {i+1}"
     p.produce(args.topic, data.encode('utf-8'))
     time.sleep(1)
 
