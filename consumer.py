@@ -49,10 +49,10 @@ c = Consumer({
 c.subscribe([args.topic])
 
 while True:
-    print('here')
     msg = c.poll(1.0)
 
     if msg is None:
+        print('No message...')
         continue
     if msg.error():
         print("Consumer error: {}".format(msg.error()))

@@ -15,6 +15,7 @@
 # limitations under the License.
 """ Kafka consumer to listen streams from somewhere """
 import time
+import os
 from confluent_kafka import Producer
 
 import argparse
@@ -39,10 +40,11 @@ p = Producer({
     'bootstrap.servers': '{}:{}'.format(args.ip, args.port),
 })
 
+username = os.environ['USERNAME']
+
 for i in range(3):
-    data = f"Hi from Julien: {i+1}"
+    data = f"[{username}]: {i+1}"
     p.produce(args.topic, data.encode('utf-8'))
     time.sleep(1)
-    print("Message {} sent".format(i + 1))
 
 p.flush()

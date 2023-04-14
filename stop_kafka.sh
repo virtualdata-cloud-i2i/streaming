@@ -15,9 +15,9 @@
 # limitations under the License.
 set -e
 message_help="""
-Download and install locally Apache Kafka\n\n
+Stop Zookeeper and Apache Kafka\n\n
 Usage:\n
-    ./start_kafka.sh [--version] [-h] \n\n
+    ./stop_kafka.sh [--version] [-h] \n\n
 
 Specify the version with --version.\n
 Use -h to display this help.
